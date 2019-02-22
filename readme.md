@@ -1,5 +1,4 @@
-# MailArchiver
-## Docker based E-Mail Archive
+# MailArchiver - Docker based E-Mail Archive
 
 ### Why?
 There are a lot of awesome options out there to archive your e-mails.
