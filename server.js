@@ -25,7 +25,10 @@ n.on('end', () => n.start()) // session closed
             if(day === 0) {
                 day = 7;
             }
-            const subject = sanitize(mail.subject);
+            let subject = sanitize(mail.subject || "empty-subject");
+            if(subject === "") {
+                subject = "empty-subject";
+            }
             const path = root + "/" + inbox + "/" + year + "/" + month + "/" + day + "/" + subject + "/";
 
             jetpack.write(path + "email.json", JSON.stringify(mail));
