@@ -1,0 +1,17 @@
+{
+  "name": "mailarchiver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Robin Weitzel",
+  "license": "MIT",
+  "dependencies": {
+    "fs-jetpack": "^2.2.2",
+    "mail-notifier": "*",
+    "sanitize-filename": "^1.6.1"
+  }
+}
