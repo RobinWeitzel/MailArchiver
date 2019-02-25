@@ -29,7 +29,9 @@ n.on('end', () => n.start()) // session closed
             if(subject === "") {
                 subject = "empty-subject";
             }
-            const path = root + "/" + inbox + "/" + year + "/" + month + "/" + day + "/" + subject + "/";
+            const id = mail.id;
+
+            const path = root + "/" + inbox + "/" + year + "/" + month + "/" + day + "/" + subject + "/" + id + "/";
 
             jetpack.write(path + "email.json", JSON.stringify(mail));
             jetpack.write(path + "email.txt", mail.text || "");
