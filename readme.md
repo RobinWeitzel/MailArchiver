@@ -14,7 +14,7 @@ It automatically stores all new mails as files (as txt, html and json) using a d
 
 To get started, simply type in the following command.
 ```
-docker run -v <your-directory>:/archive -e user="<your-username>" -e password="<your-password>" -e host="<your-imap-host>" -e port="<your-imap-port>" -e name="<your-mail-name>" --name <your-container-name> -d robinweitzel/mail-archiver
+docker run -v <your-directory>:/archive -e user="<your-username>" -e password="<your-password>" -e host="<your-imap-host>" -e port="<your-imap-port>" -e name="<your-mail-name>" --name <your-container-name> -d --restart always robinweitzel/mail-archiver
 ```
 Fill in the variables:
 * \<your-directory>: a directory on the host machine where all mails are saved
