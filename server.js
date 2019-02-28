@@ -3,7 +3,7 @@ const jetpack = require('fs-jetpack');
 const sanitize = require("sanitize-filename");
 
 const imap = {
-  user:  process.env.user, 
+  user: process.env.user, 
   password: process.env.password, 
   host: process.env.host, 
   port: process.env.port, // 993
@@ -21,7 +21,7 @@ n.on('end', () => n.start()) // session closed
             const inbox = process.env.name;
             const year = mail.date.getFullYear();
             const month = mail.date.getMonth() + 1;
-            let day = mail.date.getDay();
+            let day = mail.date.getDate();
             if(day === 0) {
                 day = 7;
             }
@@ -29,7 +29,7 @@ n.on('end', () => n.start()) // session closed
             if(subject === "") {
                 subject = "empty-subject";
             }
-            const id = mail.id;
+            const id = mail.uid;
 
             const path = root + "/" + inbox + "/" + year + "/" + month + "/" + day + "/" + subject + "/" + id + "/";
 
