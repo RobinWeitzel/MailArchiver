@@ -50,7 +50,7 @@ n.on('end', () => n.start()) // session closed
             jetpack.write(path + "email.html", mail.html || "");
 
             if(client !== undefined) {
-                client.connect(function(err) {
+                client.connect({ useNewUrlParser: true }, function(err) {
                     assert.equal(null, err);
                     console.log("Connected successfully to server");
                   
@@ -58,7 +58,7 @@ n.on('end', () => n.start()) // session closed
                   
                     const collection = db.collection(inbox);
 
-                    collection.insert(mail, (err, result) => {
+                    collection.insertOne(mail, (err, result) => {
                         console.log("saved mail in db");
                         client.close();
                     });
