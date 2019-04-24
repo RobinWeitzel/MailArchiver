@@ -21,7 +21,7 @@ const inboxName = process.env.name;
 // Create a new MongoClient
 let client;
 if(url !== 'url') {
-    client = new MongoClient(url);
+    client = new MongoClient(url, { useNewUrlParser: true });
 }
 
 n = notifier(imap);
@@ -50,7 +50,7 @@ n.on('end', () => n.start()) // session closed
             jetpack.write(path + "email.html", mail.html || "");
 
             if(client !== undefined) {
-                client.connect({ useNewUrlParser: true }, function(err) {
+                client.connect(function(err) {
                     assert.equal(null, err);
                   
                     const db = client.db(dbName);
