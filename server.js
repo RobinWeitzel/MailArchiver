@@ -52,14 +52,12 @@ n.on('end', () => n.start()) // session closed
             if(client !== undefined) {
                 client.connect({ useNewUrlParser: true }, function(err) {
                     assert.equal(null, err);
-                    console.log("Connected successfully to server");
                   
                     const db = client.db(dbName);
                   
                     const collection = db.collection(inbox);
 
                     collection.insertOne(mail, (err, result) => {
-                        console.log("saved mail in db");
                         client.close();
                     });
                 });
