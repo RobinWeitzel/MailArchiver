@@ -12,6 +12,7 @@
   "dependencies": {
     "fs-jetpack": "^2.2.2",
     "mail-notifier": "*",
+    "mongodb": "^3.2.3",
     "sanitize-filename": "^1.6.1"
   }
 }

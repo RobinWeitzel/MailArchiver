@@ -1,6 +1,8 @@
 const notifier = require('mail-notifier');
 const jetpack = require('fs-jetpack');
 const sanitize = require("sanitize-filename");
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 const imap = {
   user: process.env.user, 
@@ -12,13 +14,23 @@ const imap = {
   markSeen: false
 };
 
+const url = process.env.mongourl; // i.e. 'mongodb://localhost:27017'
+const dbName = process.env.mongodb;
+const inboxName = process.env.name;
+
+// Create a new MongoClient
+let client;
+if(url !== 'url') {
+    client = new MongoClient(url);
+}
+
 n = notifier(imap);
 
 n.on('end', () => n.start()) // session closed
     .on('mail', mail => {
         if(mail !== undefined) {
             const root = "../archive"; // To bind, use -v /storage/mail_archiver:/archive
-            const inbox = process.env.name;
+            const inbox = inboxName;
             const year = mail.date.getFullYear();
             const month = mail.date.getMonth() + 1;
             let day = mail.date.getDate();
@@ -36,6 +48,23 @@ n.on('end', () => n.start()) // session closed
             jetpack.write(path + "email.json", JSON.stringify(mail));
             jetpack.write(path + "email.txt", mail.text || "");
             jetpack.write(path + "email.html", mail.html || "");
+
+            if(client !== undefined) {
+                client.connect(function(err) {
+                    assert.equal(null, err);
+                    console.log("Connected successfully to server");
+                  
+                    const db = client.db(dbName);
+                  
+                    const collection = db.collection(inbox);
+
+                    collection.insert(mail, (err, result) => {
+                        console.log("saved mail in db");
+                        client.close();
+                    });
+                });
+            }
+
         }
     })
     .start();

@@ -5,6 +5,8 @@ ENV password password
 ENV host imap.host.com
 ENV port 993
 ENV name email
+ENV mongourl url
+ENV mongodb mailarchive
 
 WORKDIR /app
 
