@@ -26,3 +26,8 @@ Fill in the variables:
 * \<your-container-name>: the name of the container within docker
 
 Once running, the script will store all new e-mails in the corresponding directory.
+
+Optionally, you can also save the email in a MongoDB by providing the url and db name as an additional variable.
+```
+docker run -v <your-directory>:/archive -e user="<your-username>" -e password="<your-password>" -e host="<your-imap-host>" -e port="<your-imap-port>" -e name="<your-mail-name>" -e mongourl="<your-mongodb-url>" -e mongodb="<your-mongodb-name>" --name <your-container-name> -d --restart always robinweitzel/mail-archiver
+```
