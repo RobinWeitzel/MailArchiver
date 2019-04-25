@@ -51,15 +51,9 @@ if (url !== 'url') {
                     jetpack.write(path + "email.txt", mail.text || "");
                     jetpack.write(path + "email.html", mail.html || "");
 
-                    if (client !== undefined) {
-                        client.connect(function (err) {
-                            assert.equal(null, err);
-                            
-                            const collection = db.collection(inbox);
+                    const collection = db.collection(inbox);
 
-                            collection.insertOne(mail);
-                        });
-                    }
+                    collection.insertOne(mail);
 
                 }
             })
@@ -88,21 +82,6 @@ if (url !== 'url') {
                 jetpack.write(path + "email.json", JSON.stringify(mail));
                 jetpack.write(path + "email.txt", mail.text || "");
                 jetpack.write(path + "email.html", mail.html || "");
-
-                if (client !== undefined) {
-                    client.connect(function (err) {
-                        assert.equal(null, err);
-
-                        const db = client.db(dbName);
-
-                        const collection = db.collection(inbox);
-
-                        collection.insertOne(mail, (err, result) => {
-                            client.close();
-                        });
-                    });
-                }
-
             }
         })
         .start();
