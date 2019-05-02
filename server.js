@@ -53,8 +53,8 @@ if (url !== 'url') {
                     jetpack.write(path + "email.html", mail.html || "");
 
                     const collection = db.collection(inbox);
-                    collection.ensureIndex("uid", () => {
-                        collection.update(mail.uid, mail, {upsert: true});
+                    collection.createIndex("uid", {unique: true, dropDups: false}).then(() => {
+                        collection.updateOne({uid: mail.uid}, mail, {upsert: true});
                     });   
                 }
             })
