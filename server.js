@@ -55,6 +55,8 @@ if (url !== 'url') {
                     const collection = db.collection(inbox);
                     collection.createIndex("uid", {unique: true, dropDups: false}).then(() => {
                         collection.updateOne({uid: mail.uid}, mail, {upsert: true});
+                    }).catch(() => {
+                        collection.updateOne({uid: mail.uid}, mail, {upsert: true});
                     });   
                 }
             })
