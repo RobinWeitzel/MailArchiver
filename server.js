@@ -29,7 +29,13 @@ if (url !== 'url') {
         const db = client.db(dbName);
 
         n.on('end', () => n.start()) // session closed
-            .on('error', error => { if(error.code === 'ECONNRESET') { setTimeout(() =>{ n.stop(); n.start(); }, 5000); }})
+            .on('error', error => { 
+                if(error.code === 'ECONNRESET') {
+                    setTimeout(() =>{ n.stop(); n.start(); }, 5000);
+                } else {
+                    console.log(error);
+                }
+            })
             .on('mail', mail => {
                 if (mail !== undefined) {
                     const root = "../archive"; // To bind, use -v /storage/mail_archiver:/archive
